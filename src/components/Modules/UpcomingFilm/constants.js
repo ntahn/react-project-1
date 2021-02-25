@@ -1,0 +1,3 @@
+export const ACT_UPCOMING_FILM_REQUEST = "upcomingFilmReducer/ACT_UPCOMING_FILM_REQUEST";
+export const ACT_UPCOMING_FILM_SUCCESS = "upcomingFilmReducer/ACT_UPCOMING_FILM_SUCCESS";
+export const ACT_UPCOMING_FILM_FAILED = "upcomingFilmReducer/ACT_UPCOMING_FILM_FAILED";

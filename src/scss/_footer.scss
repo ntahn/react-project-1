@@ -1,0 +1,169 @@
+@import './mixin';
+@import './variable';
+
+footer {
+    background-color: #222;
+    .footer__top {
+        h3 {
+            font-size: 13px;
+            @include respond-to('lg') {
+                display: none;
+            }
+        }
+    }
+    
+    
+    .footer__tixContent {
+        padding-top: 15px;
+        .footer__tixItem {
+            a {
+                font-size: 13px;
+                color: $color-gray2;
+                transition: all .3s;
+                display: block;
+                margin-bottom: 10px;
+                &:hover {
+                    color: white;
+                    text-decoration: none;
+                }
+            }
+
+            .footer__faq, .footer__brandGuide {
+                @include respond-to('lg') {
+                    display: none;
+                }
+            }
+
+            .footer__deal {
+                @include respond-to('md') {
+                    text-align: right;
+                }
+            }
+        }
+    }
+
+    .footer__partners {
+        @include respond-to('lg') {
+            display: none;
+        }
+        .footer__partnersContent {
+            margin-left: 15px;
+            // padding-top: 15px;
+            a {
+                margin-right: 20px;
+                &:hover img {
+                    opacity: .7;
+                }
+            }
+            img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+            }
+            .row {
+                margin-top: 16px;
+            }
+        }
+    }
+
+    .footer__mobileApp, .footer__social{
+        .footer__mobileApp--Item, .footer__social--Item {
+            margin-top: 15px;
+        }
+        
+        a {
+            text-decoration: none;
+            color: $color-gray2;
+            margin-right: 15px;
+            
+            img {
+                width: 25px;
+            }
+        }
+        .footer__mobileApp--Item {
+            @include respond-to('lg') {
+                display: none;
+            }
+        }
+    }
+
+    .footer__social {
+        a {
+            img {
+                width: 30px;
+            }
+        }
+        .footer__social--Item {
+            @include respond-to('lg') {
+                display: flex;
+            }
+
+            @include respond-to('md') {
+               justify-content: center;
+            }
+        }
+        
+    }
+
+    .footer__bot {
+        margin-top: 20px;
+        padding: 20px 0;
+        border-top: 1px solid $color-gray6;
+        h3 {
+            font-size: 13px;
+        }
+        .footer__zion {
+            img {
+                border-radius: 5px;
+                width: 100%;
+                @include respond-to('md') {
+                    width: 20%;
+                }
+            }
+            @include respond-to('md') {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+        }
+        .footer__botAddress {
+            p {
+                color: $color-gray2;
+                font-size: 12px;
+                margin-bottom: 2px;
+            }
+            .footer__email {
+                color: $color-red;
+                &:hover {
+                    text-decoration: none;
+                    animation: changeColor 1s infinite;
+                }
+            }
+            @include respond-to('lg') {
+                text-align: center;
+            }
+        }
+
+        .footer__boCongThuong {
+            img {
+                @include respond-to('md') {
+                    width: 30%;
+                }
+            }
+            @include respond-to('md') {
+                text-align: center;
+                margin-top: 10px;
+            }       
+        }
+    }
+}
+
+@keyframes changeColor {
+    0% {
+        // color: #681407;
+        color: $color-red;
+    }
+    50% {
+        // color: $color-red;
+        color: #8a1c0b;
+    }
+}

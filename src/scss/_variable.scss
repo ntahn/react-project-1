@@ -1,0 +1,26 @@
+//Color
+$color-gray1: rgba(238,238,238,.88);
+$color-gray2: #949494;
+$color-gray3: rgba(246,246,246,.5);
+$color-gray4: #e4e4e4;
+$color-gray5: #9b9b9b;
+$color-gray6: #4a4a4a;
+$color-light-green: #8bc541;
+$color-green: #108f3e;
+$color-red: #fb4226;
+$color-black: #000;
+$color-white: #fff;
+
+// FONT-SIZE
+$fs-1: 12px;
+$fs-2: 14px;
+$fs-3: 18px;
+$fs-4: 20px;
+
+//break points
+$breakpoints:(
+    'xl': 1200px,
+    'lg' : 992px,
+    'md' : 768px,
+    'sm' : 576px,
+)

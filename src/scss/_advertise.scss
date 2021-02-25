@@ -1,0 +1,154 @@
+@import '../scss//mixin';
+
+.freeApp {
+    background: url(../img/freeApp-bg.jpg) no-repeat center center;
+    background-size: cover;
+    padding: 120px 0;
+    .freeApp__content {
+      display: flex;
+      align-items: center;
+    }
+    .freeApp__left {
+      padding: 0 40px;
+      align-items: center;
+      h2 {
+        line-height: 1.6;
+      }
+      h3 {
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 1.5;
+        padding: 20px 0;
+      }
+      button {
+        padding: 7px 25px;
+        background-color: $color-red;
+        border: $color-red;
+        color: white;
+        border-radius: 5px;
+      }
+      p {
+        margin-top: 15px;
+        a {
+          color: white;
+          text-decoration: underline;
+        }
+      }
+      @include respond-to("lg") {
+        text-align: center;
+        padding: 0 100px;
+      }
+  
+      @include respond-to("md") {
+        text-align: center;
+        padding: 0 30px;
+      }
+    }
+  
+    .freeApp__right {
+      text-align: center;
+      display: inline-block;
+      position: relative;
+      width: 40%;
+      height: 440px;
+  
+      @include respond-to("xl") {
+        height: 400px;
+      }
+  
+      @include respond-to("lg") {
+        height: 540px;
+        // width: 39%;
+      }
+  
+      @include respond-to("md") {
+        height: 440px;
+      }
+  
+      @include respond-to("sm") {
+        height: 380px;
+      }
+      .freeApp__phone {
+        width: 100%;
+        height: 100%;
+      }
+      .owl-carousel {
+        position: absolute;
+        top: 9px;
+        left: 6px;
+        overflow: hidden;
+        width: 95%;
+        border-radius: 20px;
+        // @include respond-to('xl') {
+        //   width: 95%;
+        // }
+  
+        @include respond-to("xl") {
+          left: 5px;
+        }
+  
+        @include respond-to("lg") {
+          left: 4px;
+          width: 96%;
+          padding-left: 3px;
+        }
+  
+        @include respond-to("md") {
+          width: 96%;
+          left: 3px;
+        }
+  
+        @include respond-to("sm") {
+          left: 2px;
+          width: 96%;
+        }
+        .owl-stage-outer {
+          border-radius: 26px;
+          @include respond-to("xl") {
+            border-radius: 18px;
+          }
+  
+          @include respond-to("lg") {
+            border-radius: 26px;
+          }
+  
+          @include respond-to("md") {
+            border-radius: 18px;
+          }
+        }
+        .item {
+          height: 421px;
+          @include respond-to("xl") {
+            height: 383px;
+          }
+  
+          @include respond-to("lg") {
+            height: 520px;
+          }
+  
+          @include respond-to("md") {
+            height: 420px;
+          }
+  
+          @include respond-to("sm") {
+            height: 370px;
+          }
+          img {
+            position: relative;
+            // border-radius: 30px;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            display: block;
+          }
+        }
+      }
+    }
+  
+    .freeApp__content1 {
+      @include respond-to("lg") {
+        margin-top: 40px;
+      }
+    }
+  }
+  

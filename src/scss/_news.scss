@@ -1,0 +1,117 @@
+@import './mixin';
+
+.movieNews {
+    img {
+      border-radius: 5px;
+    }
+    #myTab {
+      padding-top: 120px;
+      background: url(../../src/img/back-news.png) no-repeat center center;
+      background-size: cover;
+      justify-content: center;
+      border: none;
+      .nav-item {
+        .nav-link {
+          font-size: 21px;
+          color: black;
+          transition: all 0.2s;
+          border: none;
+          height: 24px;
+          line-height: 24px;
+          &:hover {
+            font-size: 24px;
+            border: none;
+          }
+        }
+  
+        .nav-link.active {
+          border: none;
+          background-color: transparent;
+          color: $color-red;
+          font-size: 24px;
+        }
+      }
+    }
+  
+    #myTabContent {
+      .movieNews__content {
+        margin-top: 30px;
+        a {
+          &:hover {
+            text-decoration: none;
+          }
+          h2 {
+            font-size: 16px;
+            color: black;
+            transition: all 0.3s;
+            padding-top: 10px;
+            &:hover {
+              color: $color-red;
+            }
+          }
+        }
+  
+        p {
+          font-size: 13px;
+          color: $color-gray6;
+        }
+  
+        span {
+          opacity: 0.5;
+          .far {
+            transition: all 0.3s;
+            cursor: pointer;
+            &:hover {
+              transform: scale(1.2);
+            }
+          }
+        }
+      }
+  
+      .news__right {
+        display: flex;
+        align-items: center;
+        a {
+          color: black;
+          transition: all 0.3s;
+          font-size: 15px;
+          
+          &:hover {
+            text-decoration: none;
+            color: $color-red;
+          }
+        }
+      }
+  
+      .news__item {
+        margin-bottom: 15px;
+        @include respond-to('md') {
+          margin-top: 25px;
+        }
+        img {
+          @include respond-to('md') {
+            padding-left: 15px;
+          }
+        }
+      }
+    }
+  
+    .movieNews__button {
+      padding: 7px 25px;
+      color: $color-gray2;
+      border: 1px solid $color-gray2;
+      font-size: 14px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      background-color: white;
+      display: block;
+      margin: 30px auto;
+      transition: all 0.3s;
+      &:hover {
+        color: white;
+        background-color: $color-red;
+        border-color: $color-red;
+      }
+    }
+  }
+  
