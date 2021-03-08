@@ -101,7 +101,6 @@ function CinemaTable(props) {
                     </div>
                 </div>
             </div>
-
         </section>
     )
 }

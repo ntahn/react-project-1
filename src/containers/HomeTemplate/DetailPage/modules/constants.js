@@ -1,0 +1,3 @@
+export const ACT_DETAIL_MOVIE_REQUEST = 'detailReducer/ACT_DETAIL_MOVIE_REQUEST';
+export const ACT_DETAIL_MOVIE_SUCCESS = 'detailReducer/ACT_DETAIL_MOVIE_SUCCESS';
+export const ACT_DETAIL_MOVIE_FAILED = 'detailReducer/ACT_DETAIL_MOVIE_FAILED';

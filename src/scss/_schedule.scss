@@ -1,0 +1,21 @@
+.address {
+    border-radius: 4px;
+    margin: 30px 0;
+    .active {
+        opacity: 1;
+    }
+    .col-md-4 {
+        padding: 0 0;
+        border: none;
+        width: 100%;
+        #myTab {
+            .logoRap {
+                border: none;
+                display: flex;
+            }
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
