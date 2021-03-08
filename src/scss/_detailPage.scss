@@ -1,0 +1,73 @@
+@import './variable';
+
+.backgroundImg {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    height: 300px;
+}
+
+.backgroundPicture {
+    filter: blur(15px);
+    margin: -11px 0 -5px -10px;
+    width: calc(100% + 5px);
+}
+
+.poster_overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent 100%);
+    top: 0;
+    left: 0;
+    height: 200%;
+    width: 100%;
+    position: absolute;
+}
+
+.posterInfo {
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    width: 100%;
+    .col-sm-3 {
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 7px;
+        }
+    }
+    .col-sm-5 {
+        color: white;
+        padding-left: 0;
+        p:first-child {
+            margin-bottom: .5em;
+        }
+        .filmInfo {
+            margin-bottom: .5em;
+            span:first-child {
+                background-color: red;
+                padding: 5px 15px;
+                border-radius: 5px;
+                margin-right: 5px;
+            }
+            span:last-child {
+                font-size: 25px;
+                font-weight: 700;
+            }
+        }
+        button {
+            color: white;
+            border: none;
+            background-color: red;
+            padding: 5px 15px;
+            border-radius: 5px;
+        }
+    }
+    .col-sm-4 {
+        .progressBar {
+            width: 10em;
+            height: 10em;
+            
+        }
+    } 
+}

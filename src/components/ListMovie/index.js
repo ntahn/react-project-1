@@ -6,6 +6,7 @@ import playButton from '../../img/play-video.png';
 import star from '../../img/star1.png';
 import halfStar from '../../img/star1.2.png';
 import { actUpcomingFilmApi } from '../Modules/UpcomingFilm/action';
+import { Link } from 'react-router-dom';
 
 function ListMovie(props) {
 
@@ -38,7 +39,10 @@ function ListMovie(props) {
                             <p className="card-text"><span>C18</span>{item.tenPhim}</p>
                             <p className="ageLimit">128 phút</p>
                         </div>
-                        <button className="card-footer">MUA VÉ</button>
+                        <Link to={"/detail/" + item.tenPhim}>
+                            <button className="card-footer" type="button">MUA VÉ</button>
+                        </Link>
+                        
                     </div>
                 )
             })
@@ -69,7 +73,9 @@ function ListMovie(props) {
                             <p className="card-text"><span>C18</span>{item.tenPhim}</p>
                             <p className="ageLimit">128 phút</p>
                         </div>
-                        <button className="card-footer">MUA VÉ</button>
+                        <Link to={"/detail/" + item.tenPhim}>
+                            <button className="card-footer" type="button">MUA VÉ</button>
+                        </Link>
                     </div>
                 )
             })
