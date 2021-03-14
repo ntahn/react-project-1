@@ -2,6 +2,7 @@ import "./App.scss";
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 import { Component } from "react";
 import Login from "../src/containers/LoginTemplate";
+import AlertTimeOut from "./components/AlertTimeOut";
 import PageNotFound from "../src/containers/PageNotFound";
 import { routesHome, routesAdmin } from "../src/routes";
 import HomeTemplate from "../src/containers/HomeTemplate";
@@ -44,7 +45,8 @@ class App extends Component {
 				{this.showLayoutHome(routesHome)}
 				{this.showLayoutAdmin(routesAdmin)}
 				<Redirect exact from="/dashboard" to="/dashboard/user" />
-				<Route path="/login" component={Login} />
+				<Route path="/login" exact component={Login} />
+				<Route path="/alert" exact component={AlertTimeOut} />
 				<Route path="" component={PageNotFound} />
 			</Switch>
 		);
