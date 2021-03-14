@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import api from "./../../../api";
 
 export default function MovieDetail(props) {
+	const history = useHistory();
 	const [movieDetail, setMovieDetail] = useState({});
 	const renderTable = () => {
 		const { lichChieu } = movieDetail;
@@ -11,12 +13,25 @@ export default function MovieDetail(props) {
 					<tr key={item.maLichChieu}>
 						<td>{item.thongTinRap.tenCumRap}</td>
 						<td>{item.thongTinRap.tenRap}</td>
-						<td>{new Date(item.ngayChieuGioChieu).toLocaleDateString()}</td>
+						<td>
+							{new Date(item.ngayChieuGioChieu).toLocaleDateString("en-GB")}
+						</td>
 						<td>{new Date(item.ngayChieuGioChieu).toLocaleTimeString()}</td>
 					</tr>
 				);
 			});
 		}
+	};
+	const handleDeleteMovie = () => {
+		api
+			.delete(`/QuanLyPhim/XoaPhim?MaPhim=${props.match.params.id}`)
+			.then(() => {
+				alert("xoa thanh cong");
+				history.push("/dashboard/movie");
+			})
+			.catch((err) => {
+				console.log(err.response.data);
+			});
 	};
 	useEffect(() => {
 		api
@@ -37,6 +52,12 @@ export default function MovieDetail(props) {
 						src={movieDetail && movieDetail.hinhAnh}
 						alt=""
 					/>
+					<button
+						onClick={() => handleDeleteMovie()}
+						className="btn btn-danger d-block my-2"
+					>
+						Xóa Phim
+					</button>
 				</div>
 				<div className="col-sm-8">
 					<table className="table">
@@ -49,7 +70,9 @@ export default function MovieDetail(props) {
 								<td>Ngày Khởi Chiếu</td>
 								<td>
 									{movieDetail &&
-										new Date(movieDetail.ngayKhoiChieu).toLocaleDateString()}
+										new Date(movieDetail.ngayKhoiChieu).toLocaleDateString(
+											"en-GB"
+										)}
 								</td>
 							</tr>
 							<tr>

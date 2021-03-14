@@ -14,16 +14,18 @@ function LayoutAdmin(props) {
 		if (date > exp) {
 			localStorage.removeItem("UserAdmin");
 			localStorage.removeItem("exp");
+			history.push("/alert");
 			//chuyen huong ve trang auth
-			alert("Đã hết phiên đăng nhập, vui lòng đăng nhập lại");
-			history.push("/login");
+			// alert("Đã hết phiên đăng nhập, vui lòng đăng nhập lại");
+			// history.push("/login");
 		} else {
 			setTimeout(() => {
 				localStorage.removeItem("UserAdmin");
 				localStorage.removeItem("exp");
+				history.push("/alert");
 				//chuyen huong ve trang auth
-				alert("Đã hết phiên đăng nhập, vui lòng đăng nhập lại");
-				history.push("/login");
+				// alert("Đã hết phiên đăng nhập, vui lòng đăng nhập lại");
+				// history.push("/login");
 			}, exp - date);
 		}
 	}
