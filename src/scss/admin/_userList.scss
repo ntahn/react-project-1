@@ -1,0 +1,50 @@
+.userList {
+	.col-sm-12 {
+		font-size: 0.88rem;
+		.table {
+			td,
+			th {
+				padding: 5px;
+				vertical-align: middle;
+				border: 1px solid #dee2e6;
+			}
+
+			input {
+				width: 100%;
+				border: none;
+				outline: none;
+				border-bottom: 2px solid red;
+				// transition: 0.5 all ease;
+				&:focus {
+					padding-bottom: 3px;
+				}
+			}
+		}
+		.newUserForm {
+			margin-bottom: 20px;
+			input {
+				border: none;
+				outline: none;
+				border-bottom: 2px solid rgb(192, 192, 255);
+				&:focus {
+					background-color: rgb(232, 232, 235);
+				}
+			}
+		}
+	}
+
+	.form {
+		display: flex;
+		margin: 20px auto;
+		button {
+			width: 120px;
+		}
+		// input[name="search"] {
+		// 	width: 400px;
+		// }
+	}
+}
+
+input[name="search"] {
+	width: 400px;
+}
