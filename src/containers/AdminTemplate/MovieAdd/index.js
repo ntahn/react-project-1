@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import api from "./../../../api";
+import Moment from "moment";
 
 export default function MovieAdd() {
 	const history = useHistory();
@@ -11,6 +12,8 @@ export default function MovieAdd() {
 		trailer: "",
 		hinhAnh: {},
 		maNhom: "GP01",
+		ngayKhoiChieu: "",
+		danhGia: "",
 	};
 	const [newMovieInfo, setNewMovieInfo] = useState(initialState);
 	const [err, setErr] = useState("");
@@ -18,7 +21,6 @@ export default function MovieAdd() {
 	const handleAddMovie = (e) => {
 		let error = false;
 		e.preventDefault();
-		console.log(newMovieInfo);
 		let formData = new FormData();
 		for (let key in newMovieInfo) {
 			console.log(key, newMovieInfo[key]);
@@ -33,7 +35,6 @@ export default function MovieAdd() {
 			api
 				.post("/QuanLyPhim/ThemPhimUploadHinh", formData)
 				.then((res) => {
-					console.log(res.data);
 					alert("them phim moi thanh cong");
 					history.push("/dashboard/movie");
 				})
@@ -48,7 +49,14 @@ export default function MovieAdd() {
 
 	const handleChange = (e) => {
 		if (e.target.name !== "hinhAnh") {
-			setNewMovieInfo({ ...newMovieInfo, [e.target.name]: e.target.value });
+			if (e.target.name === "ngayKhoiChieu") {
+				setNewMovieInfo({
+					...newMovieInfo,
+					[e.target.name]: Moment(e.target.value).format("DD/MM/YYYY"),
+				});
+			} else {
+				setNewMovieInfo({ ...newMovieInfo, [e.target.name]: e.target.value });
+			}
 		} else {
 			setNewMovieInfo({ ...newMovieInfo, hinhAnh: e.target.files[0] });
 		}
@@ -89,6 +97,15 @@ export default function MovieAdd() {
 									onChange={handleChange}
 								/>
 							</div>
+							<div className="form-group">
+								<label>Đánh Giá</label>
+								<input
+									type="text"
+									className="form-control"
+									name="danhGia"
+									onChange={handleChange}
+								/>
+							</div>
 						</div>
 						<div className="col-sm-5">
 							<div className="form-group">
@@ -106,6 +123,15 @@ export default function MovieAdd() {
 									type="text"
 									className="form-control"
 									name="moTa"
+									onChange={handleChange}
+								/>
+							</div>
+							<div className="form-group">
+								<label>Ngày Khởi Chiếu</label>
+								<input
+									type="datetime-local"
+									className="form-control"
+									name="ngayKhoiChieu"
 									onChange={handleChange}
 								/>
 							</div>

@@ -31,22 +31,44 @@ export default function MovieDetail(props) {
 	return (
 		<div className="container movieDetail">
 			<div className="row">
-				<div className="col-sm-6">
+				<div className="col-sm-4">
 					<img
 						className="img-fluid"
 						src={movieDetail && movieDetail.hinhAnh}
 						alt=""
 					/>
 				</div>
-				<div className="col-sm-6">
+				<div className="col-sm-8">
 					<table className="table">
 						<tbody>
 							<tr>
-								<td>Ten Phim</td>
+								<td>Tên Phim</td>
 								<td>{movieDetail && movieDetail.tenPhim}</td>
 							</tr>
 							<tr>
-								<td>Mo ta</td>
+								<td>Ngày Khởi Chiếu</td>
+								<td>
+									{movieDetail &&
+										new Date(movieDetail.ngayKhoiChieu).toLocaleDateString()}
+								</td>
+							</tr>
+							<tr>
+								<td>Giờ Khởi Chiếu</td>
+								<td>
+									{movieDetail &&
+										new Date(movieDetail.ngayKhoiChieu).toLocaleTimeString()}
+								</td>
+							</tr>
+							<tr>
+								<td>Trailer</td>
+								<td>{movieDetail && movieDetail.trailer}</td>
+							</tr>
+							<tr>
+								<td>Đánh Giá</td>
+								<td>{movieDetail && movieDetail.danhGia}</td>
+							</tr>
+							<tr>
+								<td>Mô Tả</td>
 								<td>{movieDetail && movieDetail.moTa}</td>
 							</tr>
 						</tbody>
