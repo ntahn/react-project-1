@@ -1,17 +1,23 @@
-@import '../src/scss/footer';
-@import '../src/scss/advertise';
-@import '../src/scss/carousel';
-@import '../src/scss/navbarhome';
-@import '../src/scss/news';
-@import '../src/scss/mixin';
-@import '../src/scss/searchbar';
-@import '../src/scss/listmovie';
-@import '../src/scss/cinematable';
-@import '../src/scss/detailPage';
-@import '../src/scss/schedule';
+@import "../src/scss/footer";
+@import "../src/scss/advertise";
+@import "../src/scss/carousel";
+@import "../src/scss/navbarhome";
+@import "../src/scss/news";
+@import "../src/scss/mixin";
+@import "../src/scss/searchbar";
+@import "../src/scss/listmovie";
+@import "../src/scss/cinematable";
+@import "../src/scss/detailPage";
+@import "../src/scss/schedule";
+@import "./../src/scss/admin/userList";
+@import "./../src/scss/login/login";
+@import "./../src/scss/admin/movieDetail.scss";
+@import "./../src/scss/admin/movieCard.scss";
+@import "./../src/scss/admin/searchBox.scss";
+@import "./../src/scss/admin/dropdown.scss";
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
