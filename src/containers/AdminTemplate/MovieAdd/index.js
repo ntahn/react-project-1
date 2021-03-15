@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import api from "./../../../api";
 import Moment from "moment";
@@ -10,7 +10,7 @@ export default function MovieAdd() {
 		tenPhim: "",
 		moTa: "",
 		trailer: "",
-		hinhAnh: {},
+		hinhAnh: "",
 		maNhom: "GP01",
 		ngayKhoiChieu: "",
 		// danhGia: "",
@@ -61,6 +61,10 @@ export default function MovieAdd() {
 			setNewMovieInfo({ ...newMovieInfo, hinhAnh: e.target.files[0] });
 		}
 	};
+
+	useEffect(() => {
+		console.log(newMovieInfo);
+	}, [newMovieInfo]);
 
 	return (
 		<section className="add-new-movie">
