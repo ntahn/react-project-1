@@ -148,7 +148,8 @@ export default function DashBoardPage() {
 					.catch((err) => console.log(err.response.data));
 			})
 			.catch((err) => {
-				alert(err.response.data);
+				// alert(err.response.data);
+				console.log(err);
 			});
 	};
 
