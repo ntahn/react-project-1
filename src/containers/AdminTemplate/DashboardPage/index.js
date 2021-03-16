@@ -120,7 +120,7 @@ export default function DashBoardPage() {
 			api
 				.put("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", updateUserData)
 				.then((result) => {
-					alert("them thanh cong");
+					alert("update thành công!");
 					setEditUser({ ...editUser, isUsing: false });
 					api
 						.get(`${userListState.url}&soTrang=${userListState.currentPage}`)
