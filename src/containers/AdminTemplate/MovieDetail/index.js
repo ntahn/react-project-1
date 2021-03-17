@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import api from "./../../../api";
 import Moment from "moment";
+import AddNewMovieSchedule from "../../../components/AddNewMovieSchedule";
 
 export default function MovieDetail(props) {
 	const history = useHistory();
@@ -107,12 +108,6 @@ export default function MovieDetail(props) {
 					>
 						Xóa Phim
 					</button>
-					<button
-						// onClick={() => handleDeleteMovie()}
-						className="btn btn-success mb-2"
-					>
-						Thêm Lịch Chiếu
-					</button>
 				</div>
 				<div className="col-sm-8">
 					<table className="table">
@@ -206,6 +201,10 @@ export default function MovieDetail(props) {
 					)}
 				</div>
 			</div>
+			<AddNewMovieSchedule
+				maPhim={props.match.params.id}
+				setMovieDetail={setMovieDetail}
+			/>
 			<div className="row">
 				<div className="col-sm-12">
 					<table className="table">
