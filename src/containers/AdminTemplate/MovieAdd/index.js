@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import api from "./../../../api";
 import Moment from "moment";
@@ -6,14 +6,14 @@ import Moment from "moment";
 export default function MovieAdd() {
 	const history = useHistory();
 	const initialState = {
-		maPhim: "",
+		// maPhim: "",
 		tenPhim: "",
 		moTa: "",
 		trailer: "",
-		hinhAnh: {},
+		hinhAnh: "",
 		maNhom: "GP01",
 		ngayKhoiChieu: "",
-		danhGia: "",
+		// danhGia: "",
 	};
 	const [newMovieInfo, setNewMovieInfo] = useState(initialState);
 	const [err, setErr] = useState("");
@@ -62,6 +62,10 @@ export default function MovieAdd() {
 		}
 	};
 
+	useEffect(() => {
+		console.log(newMovieInfo);
+	}, [newMovieInfo]);
+
 	return (
 		<section className="add-new-movie">
 			<div className="container">
@@ -70,7 +74,7 @@ export default function MovieAdd() {
 					{err !== "" && <div className="alert alert-danger">{err}</div>}
 					<div className="row">
 						<div className="col-sm-5 mr-5">
-							<div className="form-group">
+							{/* <div className="form-group">
 								<label>Mã Phim</label>
 								<input
 									type="text"
@@ -78,42 +82,13 @@ export default function MovieAdd() {
 									name="maPhim"
 									onChange={handleChange}
 								/>
-							</div>
+							</div> */}
 							<div className="form-group">
 								<label>Tên Phim</label>
 								<input
 									type="text"
 									className="form-control"
 									name="tenPhim"
-									onChange={handleChange}
-								/>
-							</div>
-							<div className="form-group">
-								<label>Trailer</label>
-								<input
-									type="text"
-									className="form-control"
-									name="trailer"
-									onChange={handleChange}
-								/>
-							</div>
-							<div className="form-group">
-								<label>Đánh Giá</label>
-								<input
-									type="text"
-									className="form-control"
-									name="danhGia"
-									onChange={handleChange}
-								/>
-							</div>
-						</div>
-						<div className="col-sm-5">
-							<div className="form-group">
-								<label>Hình Ảnh</label>
-								<input
-									type="file"
-									className="form-control"
-									name="hinhAnh"
 									onChange={handleChange}
 								/>
 							</div>
@@ -126,6 +101,36 @@ export default function MovieAdd() {
 									onChange={handleChange}
 								/>
 							</div>
+							<div className="form-group">
+								<label>Trailer</label>
+								<input
+									type="text"
+									className="form-control"
+									name="trailer"
+									onChange={handleChange}
+								/>
+							</div>
+							{/* <div className="form-group">
+								<label>Đánh Giá</label>
+								<input
+									type="text"
+									className="form-control"
+									name="danhGia"
+									onChange={handleChange}
+								/>
+							</div> */}
+						</div>
+						<div className="col-sm-5">
+							<div className="form-group">
+								<label>Hình Ảnh</label>
+								<input
+									type="file"
+									className="form-control"
+									name="hinhAnh"
+									onChange={handleChange}
+								/>
+							</div>
+
 							<div className="form-group">
 								<label>Ngày Khởi Chiếu</label>
 								<input

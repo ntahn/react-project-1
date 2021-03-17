@@ -1,8 +1,50 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import api from "./../../../api";
+import Moment from "moment";
+import AddNewMovieSchedule from "../../../components/AddNewMovieSchedule";
 
 export default function MovieDetail(props) {
+	const history = useHistory();
 	const [movieDetail, setMovieDetail] = useState({});
+	const [editMovie, setEditMovie] = useState({ isUsing: false });
+	const handleChange = (e) => {
+		if (e.target.name === "hinhAnh") {
+			console.log(e.target);
+			setEditMovie({ ...editMovie, hinhAnh: e.target.files[0] });
+		} else {
+			if (e.target.type === "ngayKhoiChieu") {
+				setEditMovie({
+					...editMovie,
+					[e.target.name]: Moment(e.target.value).format("DD/MM/YYYY"),
+				});
+			} else {
+				setEditMovie({ ...editMovie, [e.target.name]: e.target.value });
+			}
+		}
+	};
+	const handleUpdate = () => {
+		let formData = new FormData();
+		for (let key in editMovie) {
+			formData.append(key, editMovie[key]);
+		}
+		api
+			.post(`/QuanLyPhim/CapNhatPhimUpload`, formData)
+			.then(() => {
+				api
+					.get(`/QuanLyPhim/LayThongTinPhim?MaPhim=${props.match.params.id}`)
+					.then((res) => {
+						alert("update thành công!");
+						setMovieDetail(res.data);
+						setEditMovie({ ...editMovie, isUsing: false });
+					})
+					.catch((err) => alert(err.response.data));
+			})
+			.catch((err) => alert(err.response.data));
+	};
+	const handleEditMovie = () => {
+		setEditMovie({ ...movieDetail, hinhAnh: {}, isUsing: !editMovie.isUsing });
+	};
 	const renderTable = () => {
 		const { lichChieu } = movieDetail;
 		if (lichChieu && lichChieu.length > 0) {
@@ -11,22 +53,40 @@ export default function MovieDetail(props) {
 					<tr key={item.maLichChieu}>
 						<td>{item.thongTinRap.tenCumRap}</td>
 						<td>{item.thongTinRap.tenRap}</td>
-						<td>{new Date(item.ngayChieuGioChieu).toLocaleDateString()}</td>
+						<td>
+							{new Date(item.ngayChieuGioChieu).toLocaleDateString("en-GB")}
+						</td>
 						<td>{new Date(item.ngayChieuGioChieu).toLocaleTimeString()}</td>
 					</tr>
 				);
 			});
 		}
 	};
+	const handleDeleteMovie = () => {
+		api
+			.delete(`/QuanLyPhim/XoaPhim?MaPhim=${props.match.params.id}`)
+			// .delete(`/QuanLyPhim/XoaPhim`, props.match.params.id)
+			.then(() => {
+				alert("xoa thanh cong");
+				history.push("/dashboard/movie");
+			})
+			.catch((err) => {
+				history.push("/dashboard/movie");
+			});
+	};
+
 	useEffect(() => {
 		api
 			.get(`/QuanLyPhim/LayThongTinPhim?MaPhim=${props.match.params.id}`)
 			.then((res) => {
-				console.log(res.data);
 				setMovieDetail(res.data);
 			})
 			.catch((err) => console.log(err.response.data));
 	}, []);
+
+	useEffect(() => {
+		console.log(editMovie, typeof editMovie.hinhAnh);
+	}, [editMovie]);
 
 	return (
 		<div className="container movieDetail">
@@ -37,44 +97,114 @@ export default function MovieDetail(props) {
 						src={movieDetail && movieDetail.hinhAnh}
 						alt=""
 					/>
+					{editMovie.isUsing && (
+						<form>
+							<input type="file" name="hinhAnh" onChange={handleChange} />
+						</form>
+					)}
+					<button
+						onClick={() => handleDeleteMovie()}
+						className="btn btn-danger d-block my-2"
+					>
+						Xóa Phim
+					</button>
 				</div>
 				<div className="col-sm-8">
 					<table className="table">
 						<tbody>
 							<tr>
 								<td>Tên Phim</td>
-								<td>{movieDetail && movieDetail.tenPhim}</td>
-							</tr>
-							<tr>
-								<td>Ngày Khởi Chiếu</td>
+								{!editMovie.isUsing ? (
+									<td className="movie-content">
+										{movieDetail && movieDetail.tenPhim}
+									</td>
+								) : (
+									<td>
+										<input
+											// className="my-auto"
+											type="text"
+											name="tenPhim"
+											value={editMovie.tenPhim}
+											onChange={handleChange}
+										/>
+									</td>
+								)}
+
 								<td>
-									{movieDetail &&
-										new Date(movieDetail.ngayKhoiChieu).toLocaleDateString()}
-								</td>
-							</tr>
-							<tr>
-								<td>Giờ Khởi Chiếu</td>
-								<td>
-									{movieDetail &&
-										new Date(movieDetail.ngayKhoiChieu).toLocaleTimeString()}
+									<button className="btn btn-warning" onClick={handleEditMovie}>
+										{editMovie.isUsing ? "Cancel" : "Edit"}
+									</button>
 								</td>
 							</tr>
 							<tr>
 								<td>Trailer</td>
-								<td>{movieDetail && movieDetail.trailer}</td>
-							</tr>
-							<tr>
-								<td>Đánh Giá</td>
-								<td>{movieDetail && movieDetail.danhGia}</td>
+								{!editMovie.isUsing ? (
+									<td className="movie-content">
+										{movieDetail && movieDetail.trailer}
+									</td>
+								) : (
+									<td>
+										<input
+											// className="my-auto"
+											type="text"
+											name="trailer"
+											value={editMovie.trailer}
+											onChange={handleChange}
+										/>
+									</td>
+								)}
 							</tr>
 							<tr>
 								<td>Mô Tả</td>
-								<td>{movieDetail && movieDetail.moTa}</td>
+								{!editMovie.isUsing ? (
+									<td className="movie-content">
+										{movieDetail && movieDetail.moTa}
+									</td>
+								) : (
+									<td>
+										<input
+											// className="my-auto"
+											type="text"
+											name="moTa"
+											value={editMovie.moTa}
+											onChange={handleChange}
+										/>
+									</td>
+								)}
+							</tr>
+							<tr>
+								<td>Đánh Giá</td>
+								<td className="movie-content">
+									{movieDetail && movieDetail.danhGia}
+								</td>
+							</tr>
+							<tr>
+								<td>Ngày Giờ Khởi Chiếu</td>
+								<td className="movie-content">
+									{movieDetail &&
+										Moment(movieDetail.ngayKhoiChieu).format(
+											"DD/MM/YYYY HH:mm A"
+										)}
+								</td>
 							</tr>
 						</tbody>
 					</table>
+					{editMovie.isUsing && (
+						<div className="pl-5">
+							<button
+								className="btn btn-success"
+								onClick={() => handleUpdate()}
+							>
+								Update
+							</button>
+						</div>
+					)}
 				</div>
 			</div>
+			<AddNewMovieSchedule
+				maPhim={props.match.params.id}
+				setMovieDetail={setMovieDetail}
+			/>
 			<div className="row">
 				<div className="col-sm-12">
 					<table className="table">

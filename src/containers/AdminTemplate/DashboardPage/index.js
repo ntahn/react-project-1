@@ -120,7 +120,7 @@ export default function DashBoardPage() {
 			api
 				.put("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", updateUserData)
 				.then((result) => {
-					alert("them thanh cong");
+					alert("update thành công!");
 					setEditUser({ ...editUser, isUsing: false });
 					api
 						.get(`${userListState.url}&soTrang=${userListState.currentPage}`)
@@ -148,7 +148,8 @@ export default function DashBoardPage() {
 					.catch((err) => console.log(err.response.data));
 			})
 			.catch((err) => {
-				alert(err.response.data);
+				// alert(err.response.data);
+				console.log(err);
 			});
 	};
 
