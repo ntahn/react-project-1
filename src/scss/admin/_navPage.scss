@@ -1,0 +1,28 @@
+.navPage {
+	margin-top: 14px;
+	margin-bottom: 20px;
+}
+.pagebtn {
+	border: 1px solid rgb(102, 99, 255);
+	display: inline-block;
+	height: 30px;
+	width: 30px;
+	background-color: white;
+
+	// line-height: 20px;
+}
+
+.btn-active {
+	background-color: rgb(96, 96, 255);
+	color: white;
+}
+
+.left {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.right {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}

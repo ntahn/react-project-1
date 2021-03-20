@@ -71,7 +71,11 @@ export default function MovieDetail(props) {
 				history.push("/dashboard/movie");
 			})
 			.catch((err) => {
-				history.push("/dashboard/movie");
+				if (err.response) {
+					alert(err.response.data);
+				} else {
+					history.push("/dashboard/movie");
+				}
 			});
 	};
 

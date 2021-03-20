@@ -31,7 +31,7 @@ let holdEditUser = {};
 
 export default function DashBoardPage() {
 	// let history = useHistory();
-
+	const [isLoading, setIsLoading] = useState(false);
 	const [userListState, setUserListState] = useState(initialState);
 	const [keyword, setKeyword] = useState("");
 	const [addUser, setAddUser] = useState({ ...initialUser, isUsing: false });
@@ -44,16 +44,22 @@ export default function DashBoardPage() {
 
 	const handleSubmitSearch = (e) => {
 		e.preventDefault();
-		api
-			.get(`${searchUrl}&tuKhoa=${keyword}&soTrang=1`)
-			.then((result) => {
-				setUserListState({
-					...result.data,
-					url: `${searchUrl}&tuKhoa=${keyword}`,
-				});
-				// setUrl(`${searchUrl}&tuKhoa=${keyword}`);
-			})
-			.catch((err) => console.log(err));
+		if (keyword !== "") {
+			setIsLoading(true);
+			api
+				.get(`${searchUrl}&tuKhoa=${keyword}&soTrang=1`)
+				.then((result) => {
+					setIsLoading(false);
+					setUserListState({
+						...result.data,
+						url: `${searchUrl}&tuKhoa=${keyword}`,
+					});
+					// setUrl(`${searchUrl}&tuKhoa=${keyword}`);
+				})
+				.catch((err) => console.log(err));
+		} else {
+			alert("vui lòng nhập từ khóa tìm kiếm!");
+		}
 	};
 
 	const handleEditOnChange = (e) => {
@@ -68,6 +74,7 @@ export default function DashBoardPage() {
 	};
 
 	const handleSubmitAdd = (user) => {
+		setIsLoading(true);
 		api
 			.post("/QuanLyNguoiDung/ThemNguoiDung", {
 				...user,
@@ -76,8 +83,10 @@ export default function DashBoardPage() {
 			.then((result) => {
 				alert("them thanh cong");
 				setAddUser({ ...addUser, isUsing: false });
+				setIsLoading(false);
 			})
 			.catch((err) => {
+				setIsLoading(false);
 				alert(err.response.data);
 			});
 	};
@@ -140,16 +149,18 @@ export default function DashBoardPage() {
 			.delete(`/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${user.taiKhoan}`)
 			.then((res) => {
 				alert(res.data);
+				setIsLoading(true);
 				api
 					.get(`${userListState.url}&soTrang=${userListState.currentPage}`)
 					.then((result) => {
+						setIsLoading(false);
 						setUserListState({ ...result.data, url: userListState.url });
 					})
 					.catch((err) => console.log(err.response.data));
 			})
 			.catch((err) => {
-				// alert(err.response.data);
-				console.log(err);
+				alert(err.response.data);
+				// console.log(err);
 			});
 	};
 
@@ -169,21 +180,33 @@ export default function DashBoardPage() {
 	};
 
 	useEffect(() => {
+		setIsLoading(true);
 		api
 			.get(`${userListState.url}&soTrang=1`)
 			.then((result) => {
 				frontPageState = { ...result.data, url: initialUrl };
 				setUserListState({ ...result.data, url: initialUrl });
+				setIsLoading(false);
 			})
 			.catch((err) => console.log(err));
 	}, []);
 
 	const renderUserList = () => {
+		if (isLoading) {
+			return (
+				<div className="lds-ring">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			);
+		}
 		const { items } = userListState;
 		if (items && items.length > 0) {
 			return items.map((user, index) => {
 				return (
-					<tr key={index}>
+					<tr key={index} className={index % 2 !== 0 ? "odd" : null}>
 						{editUser.key === index && editUser.isUsing ? (
 							<>
 								<td>{user.taiKhoan}</td>
@@ -271,99 +294,84 @@ export default function DashBoardPage() {
 		}
 	};
 
-	// if (!localStorage.getItem("UserAdmin")) {
-	// 	history.push("/login");
-	// } else {
-	// 	const exp = localStorage.getItem("exp");
-	// 	const date = new Date().getTime();
-	// 	// console.log("Exp", exp);
-	// 	// console.log("date", date);
-	// 	if (date > exp) {
-	// 		localStorage.removeItem("UserAdmin");
-	// 		localStorage.removeItem("exp");
-	// 		//chuyen huong ve trang auth
-	// 		alert("Đã hết phiên đăng nhập, vui lòng đăng nhập lại");
-	// 		history.push("/login");
-	// 	} else {
-	// 		setTimeout(() => {
-	// 			localStorage.removeItem("UserAdmin");
-	// 			localStorage.removeItem("exp");
-	// 			//chuyen huong ve trang auth
-	// 			alert("Đã hết phiên đăng nhập, vui lòng đăng nhập lại");
-	// 			history.push("/login");
-	// 		}, exp - date);
-	// 	}
-	// }
-
 	return (
-		<div className="container userList">
-			<h1>User List</h1>
-			<div className="row">
-				<div className="col-sm-12">
-					<form onSubmit={handleSubmitSearch} className="form">
-						<input
-							id="search"
-							type="text"
-							value={keyword}
-							name="search"
-							placeholder="Search..."
-							onChange={(e) => {
-								setKeyword(e.target.value);
-							}}
+		<div className="modal-wrap">
+			<div className="container userList">
+				<div className="userList-header">
+					<h1>Danh Sách Người Dùng</h1>
+					<button
+						className="btn add-btn"
+						type="button"
+						onClick={() => setAddUser({ ...addUser, isUsing: true })}
+					>
+						Thêm người dùng
+					</button>
+				</div>
+
+				<div className="row">
+					<div className="col-sm-12">
+						<form onSubmit={handleSubmitSearch} className="form">
+							<div className="search-bar">
+								<input
+									id="search"
+									type="text"
+									value={keyword}
+									name="search"
+									placeholder="Search..."
+									onChange={(e) => {
+										setKeyword(e.target.value);
+									}}
+								/>
+								<div
+									className="search-bar-close"
+									onClick={() => handleClearSearch()}
+								>
+									+
+								</div>
+								<button type="submit" className="btn search-button">
+									Search
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div className="row">
+					<div className="col-sm-12">
+						<table className="table">
+							<thead>
+								<tr>
+									<th>Tài Khoản</th>
+									<th>Mật Khẩu</th>
+									<th>Họ Tên</th>
+									<th>Email</th>
+									<th>Số Điện Thoại</th>
+									<th>Loại Người Dùng</th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>{renderUserList()}</tbody>
+						</table>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-sm-12">
+						<NavPage
+							currentPage={userListState.currentPage}
+							totalPages={userListState.totalPages}
+							count={userListState.count}
+							totalCount={userListState.totalCount}
+							handleChangePage={handleChangePage}
 						/>
-						<button type="submit" className="btn btn-primary">
-							Search
-						</button>
-						<button
-							className="btn btn-danger"
-							type="button"
-							onClick={() => handleClearSearch()}
-						>
-							Clear
-						</button>
-						{!addUser.isUsing && (
-							<button
-								className="btn btn-success"
-								type="button"
-								onClick={() => setAddUser({ ...addUser, isUsing: true })}
-							>
-								Add
-							</button>
-						)}
-					</form>
+					</div>
 				</div>
 			</div>
-			{addUser.isUsing && (
-				<AddNewUser handleSubmitAdd={handleSubmitAdd} cancelAdd={cancelAdd} />
-			)}
-			<div className="row">
-				<div className="col-sm-12">
-					<table className="table">
-						<thead>
-							<tr>
-								<th>Tài Khoản</th>
-								<th>Mật Khẩu</th>
-								<th>Họ Tên</th>
-								<th>Email</th>
-								<th>Số Điện Thoại</th>
-								<th>Loại Người Dùng</th>
-							</tr>
-						</thead>
-						<tbody>{renderUserList()}</tbody>
-					</table>
-				</div>
-			</div>
-			<div className="row">
-				<div className="col-sm-12">
-					<NavPage
-						currentPage={userListState.currentPage}
-						totalPages={userListState.totalPages}
-						count={userListState.count}
-						totalCount={userListState.totalCount}
-						handleChangePage={handleChangePage}
-					/>
-				</div>
-			</div>
+			<AddNewUser
+				isUsing={addUser.isUsing}
+				handleSubmitAdd={handleSubmitAdd}
+				cancelAdd={cancelAdd}
+			/>
 		</div>
 	);
 }

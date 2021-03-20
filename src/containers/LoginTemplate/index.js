@@ -62,43 +62,43 @@ export default function Login() {
 
 	return (
 		<section className="login">
-			<div className="container">
-				<div className="row">
-					<div className="col-md-6 mx-auto">
-						<h3>AuthPage</h3>
-						<form onSubmit={handleLogin}>
-							{renderNoti()}
-							<div className="form-group">
-								<label>Username</label>
-								<input
-									type="text"
-									className="form-control"
-									name="taiKhoan"
-									value={loginInfo.taiKhoan}
-									onChange={(e) => {
-										setLoginInfo({ ...loginInfo, taiKhoan: e.target.value });
-									}}
-								/>
-							</div>
-							<div className="form-group">
-								<label>Password</label>
-								<input
-									type="text"
-									className="form-control"
-									name="matKhau"
-									value={loginInfo.matKhau}
-									onChange={(e) => {
-										setLoginInfo({ ...loginInfo, matKhau: e.target.value });
-									}}
-								/>
-							</div>
-							<button type="submit" className="btn btn-success">
-								Login
-							</button>
-						</form>
-					</div>
+			{/* <div className="container"> */}
+			<div className="row login__content">
+				<div className="col-md-12 mx-auto">
+					<h3>Account Login</h3>
+					<form onSubmit={handleLogin}>
+						{renderNoti()}
+						<div className="form-group">
+							<input
+								placeholder="username"
+								type="text"
+								className="form-control"
+								name="taiKhoan"
+								value={loginInfo.taiKhoan}
+								onChange={(e) => {
+									setLoginInfo({ ...loginInfo, taiKhoan: e.target.value });
+								}}
+							/>
+						</div>
+						<div className="form-group">
+							<input
+								placeholder="password"
+								type="password"
+								className="form-control"
+								name="matKhau"
+								value={loginInfo.matKhau}
+								onChange={(e) => {
+									setLoginInfo({ ...loginInfo, matKhau: e.target.value });
+								}}
+							/>
+						</div>
+						<button type="submit" className="btn">
+							Login
+						</button>
+					</form>
 				</div>
 			</div>
+			{/* </div> */}
 		</section>
 	);
 }
