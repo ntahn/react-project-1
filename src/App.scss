@@ -15,9 +15,16 @@
 @import "./../src/scss/admin/movieCard.scss";
 @import "./../src/scss/admin/searchBox.scss";
 @import "./../src/scss/admin/dropdown.scss";
-
+@import "./../src/scss/admin/modal";
+@import "./../src/scss/admin//navPage";
+@import "./../src/scss/admin/admin";
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
+
+// html,
+// body {
+// 	height: 100%;
+// }

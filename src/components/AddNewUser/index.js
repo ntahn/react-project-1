@@ -10,7 +10,7 @@ const initialUser = {
 	// key: 0,
 };
 
-export default function AddNewUser({ handleSubmitAdd, cancelAdd }) {
+export default function AddNewUser({ handleSubmitAdd, cancelAdd, isUsing }) {
 	const [addUserInfo, setAddUserInfo] = useState(initialUser);
 	const [error, setError] = useState(initialUser);
 	let isValid = false;
@@ -28,20 +28,20 @@ export default function AddNewUser({ handleSubmitAdd, cancelAdd }) {
 		const errorList = { ...error };
 		for (const property in user) {
 			isValid = isValid && user[property];
-			errorList[property] = user[property] ? "" : "vui lòng điền thông tin";
+			errorList[property] = user[property] ? "" : "*vui lòng điền thông tin";
 			if (property === "taiKhoan") {
 				const check = user[property].length > 4;
 				isValid = isValid && check;
 				errorList[property] = check
 					? ""
-					: "chiều dài tên tài khoản phải lớn hơn 4";
+					: "*chiều dài tên tài khoản phải lớn hơn 4";
 			}
 			if (property === "email") {
 				const check = user[property].match(
 					/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i
 				);
 				isValid = isValid && check;
-				errorList[property] = check ? "" : "email không đúng định dạng";
+				errorList[property] = check ? "" : "*email không đúng định dạng";
 			}
 			if (property === "soDt") {
 				const check =
@@ -49,12 +49,14 @@ export default function AddNewUser({ handleSubmitAdd, cancelAdd }) {
 					user[property].length > 9 &&
 					user[property].length < 12;
 				isValid = isValid && check;
-				errorList[property] = check ? "" : "số điện thoại phải từ 10-11 chữ số";
+				errorList[property] = check
+					? ""
+					: "*số điện thoại phải từ 10-11 chữ số";
 			}
 			if (property === "hoTen") {
 				const check = user[property].match(/^[a-zA-Z ]+$/);
 				isValid = isValid && check;
-				errorList[property] = check ? "" : "họ tên không được chứa số";
+				errorList[property] = check ? "" : "*họ tên không được chứa số";
 			}
 			if (property === "maLoaiNguoiDung") {
 				const check =
@@ -62,7 +64,7 @@ export default function AddNewUser({ handleSubmitAdd, cancelAdd }) {
 				isValid = isValid && check;
 				errorList[property] = check
 					? ""
-					: `loại người dùng phải là "KhachHang" hoặc "QuanTri"`;
+					: `*phải là "KhachHang" hoặc "QuanTri"`;
 			}
 		}
 		setError(errorList);
@@ -79,13 +81,23 @@ export default function AddNewUser({ handleSubmitAdd, cancelAdd }) {
 	};
 
 	return (
-		<div className="row">
-			<div className="col-sm-12">
-				<form onSubmit={handleAddForm} className="col-sm-8 newUserForm">
+		<div
+			className="bg-modal"
+			style={{
+				display: isUsing ? "flex" : "none",
+			}}
+		>
+			<div className="modal-content">
+				<div className="close" onClick={() => cancelAdd()}>
+					<span>+</span>
+				</div>
+				<h3>Thêm Người Dùng Mới</h3>
+				<form onSubmit={handleAddForm} className="col-sm-12 newUserForm">
 					<div>
-						<label className="col-sm-3">Tài Khoản</label>
+						{/* <label className="col-sm-5">Tài Khoản</label> */}
 						<input
-							className="col-sm-5"
+							placeholder="Tài Khoản"
+							className=""
 							type="text"
 							id="taiKhoan"
 							name="taiKhoan"
@@ -93,15 +105,14 @@ export default function AddNewUser({ handleSubmitAdd, cancelAdd }) {
 							value={addUserInfo.taiKhoan}
 						/>
 						{error.taiKhoan && (
-							<div className="col-sm-8 alert alert-danger">
-								{error.taiKhoan}
-							</div>
+							<div className="col-sm-12 mx-auto alert">{error.taiKhoan}</div>
 						)}
 					</div>
 					<div>
-						<label className="col-sm-3">Mật Khẩu</label>
+						{/* <label className="col-sm-5">Mật Khẩu</label> */}
 						<input
-							className="col-sm-5"
+							placeholder="Mật Khẩu"
+							className=""
 							type="text"
 							id="matKhau"
 							name="matKhau"
@@ -109,13 +120,14 @@ export default function AddNewUser({ handleSubmitAdd, cancelAdd }) {
 							value={addUserInfo.matKhau}
 						/>
 						{error.matKhau && (
-							<div className="col-sm-8 alert alert-danger">{error.matKhau}</div>
+							<div className="col-sm-12 mx-auto alert">{error.matKhau}</div>
 						)}
 					</div>
 					<div>
-						<label className="col-sm-3">Họ Tên</label>
+						{/* <label className="col-sm-5">Họ Tên</label> */}
 						<input
-							className="col-sm-5"
+							placeholder="Họ Tên"
+							className=""
 							type="text"
 							id="hoTen"
 							name="hoTen"
@@ -123,13 +135,14 @@ export default function AddNewUser({ handleSubmitAdd, cancelAdd }) {
 							value={addUserInfo.hoTen}
 						/>
 						{error.hoTen && (
-							<div className="col-sm-8 alert alert-danger">{error.hoTen}</div>
+							<div className="col-sm-12 mx-auto alert">{error.hoTen}</div>
 						)}
 					</div>
 					<div>
-						<label className="col-sm-3">Email</label>
+						{/* <label className="col-sm-5">Email</label> */}
 						<input
-							className="col-sm-5"
+							placeholder="Email"
+							className=""
 							type="text"
 							id="email"
 							name="email"
@@ -137,13 +150,14 @@ export default function AddNewUser({ handleSubmitAdd, cancelAdd }) {
 							value={addUserInfo.email}
 						/>
 						{error.email && (
-							<div className="col-sm-8 alert alert-danger">{error.email}</div>
+							<div className="col-sm-12 mx-auto alert">{error.email}</div>
 						)}
 					</div>
 					<div>
-						<label className="col-sm-3">Số Điện Thoại</label>
+						{/* <label className="col-sm-5">Số Điện Thoại</label> */}
 						<input
-							className="col-sm-5"
+							placeholder="Số Điện Thoại"
+							className="col-sm-12"
 							type="text"
 							id="soDt"
 							name="soDt"
@@ -151,13 +165,14 @@ export default function AddNewUser({ handleSubmitAdd, cancelAdd }) {
 							value={addUserInfo.soDt}
 						/>
 						{error.soDt && (
-							<div className="col-sm-8 alert alert-danger">{error.soDt}</div>
+							<div className="col-sm-12 mx-auto alert">{error.soDt}</div>
 						)}
 					</div>
 					<div>
-						<label className="col-sm-3">Loại Người Dùng</label>
+						{/* <label className="col-sm-5">Loại Người Dùng</label> */}
 						<input
-							className="col-sm-5"
+							placeholder="Loại Người Dùng"
+							className=""
 							type="text"
 							id="maLoaiNguoiDung"
 							name="maLoaiNguoiDung"
@@ -165,22 +180,22 @@ export default function AddNewUser({ handleSubmitAdd, cancelAdd }) {
 							value={addUserInfo.maLoaiNguoiDung}
 						/>
 						{error.maLoaiNguoiDung && (
-							<div className="col-sm-8 alert alert-danger">
+							<div className="col-sm-12 mx-auto alert">
 								{error.maLoaiNguoiDung}
 							</div>
 						)}
 					</div>
-					<div>
+					<div className="button">
 						<button type="submit" className="btn btn-success">
-							Add
+							Thêm
 						</button>
-						<button
+						{/* <button
 							type="button"
 							onClick={() => cancelAdd()}
 							className="btn btn-danger"
 						>
 							Cancel
-						</button>
+						</button> */}
 					</div>
 				</form>
 			</div>

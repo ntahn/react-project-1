@@ -30,7 +30,7 @@ function LayoutAdmin(props) {
 		}
 	}
 	return (
-		<div>
+		<div className="admin">
 			<NavbarAdmin />
 			{props.children}
 		</div>

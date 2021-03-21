@@ -26,40 +26,42 @@ function NavbarAdmin() {
 					<span className="navbar-toggler-icon" />
 				</button>
 				<div className="collapse navbar-collapse" id="collapsibleNavId">
-					<ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-						<li className="nav-item">
-							<NavLink
-								className="nav-link"
-								to="/dashboard"
-								activeClassName="active"
-							>
-								User
-							</NavLink>
-						</li>
-						<li className="nav-item dropdown">
-							<NavLink
-								className="nav-link dropbtn"
-								to="/dashboard/movie"
-								activeClassName="active"
-							>
-								Movie
-							</NavLink>
-							<div className="dropdown-content">
+					<div className="container">
+						<ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+							<li className="nav-item">
 								<NavLink
-									className="nav-link dropbtn"
-									to="/dashboard/movie/add"
+									className="nav-link"
+									to="/dashboard"
 									activeClassName="active"
 								>
-									Add New Movie
+									User
 								</NavLink>
-							</div>
-						</li>
-						<li className="nav-item">
-							<button className="btn btn-info" onClick={() => handleLogOut()}>
-								Logout
-							</button>
-						</li>
-					</ul>
+							</li>
+							<li className="nav-item dropdown">
+								<NavLink
+									className="nav-link dropbtn"
+									to="/dashboard/movie"
+									activeClassName="active"
+								>
+									Movie
+								</NavLink>
+								<div className="dropdown-content">
+									<NavLink
+										className="nav-link dropbtn"
+										to="/dashboard/movie/add"
+										activeClassName="active"
+									>
+										Add New Movie
+									</NavLink>
+								</div>
+							</li>
+							<li className="nav-item">
+								<button className="btn btn-info" onClick={() => handleLogOut()}>
+									Logout
+								</button>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</nav>
 		</header>

@@ -71,7 +71,11 @@ export default function MovieDetail(props) {
 				history.push("/dashboard/movie");
 			})
 			.catch((err) => {
-				history.push("/dashboard/movie");
+				if (err.response) {
+					alert(err.response.data);
+				} else {
+					history.push("/dashboard/movie");
+				}
 			});
 	};
 
@@ -166,6 +170,9 @@ export default function MovieDetail(props) {
 											// className="my-auto"
 											type="text"
 											name="moTa"
+											// style={{
+											// 	height: 100 + "%",
+											// }}
 											value={editMovie.moTa}
 											onChange={handleChange}
 										/>
