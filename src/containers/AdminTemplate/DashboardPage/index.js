@@ -171,9 +171,11 @@ export default function DashBoardPage() {
 	};
 
 	const handleChangePage = (count) => {
+		setIsLoading(true);
 		api
 			.get(`${userListState.url}&soTrang=${count}`)
 			.then((result) => {
+				setIsLoading(false);
 				setUserListState({ ...result.data, url: userListState.url });
 			})
 			.catch((err) => console.log(err));
@@ -250,14 +252,18 @@ export default function DashBoardPage() {
 										onChange={handleEditOnChange}
 									/>
 								</td>
-								<td>
+								<td className="text-center">
 									<button
+										style={{
+											backgroundColor: "#e6c0a1",
+											borderColor: "#e6c0a1",
+										}}
 										onClick={() => {
 											updateUserInfo();
 										}}
 										className="btn btn-warning"
 									>
-										Edit
+										Save
 									</button>
 								</td>
 							</>
@@ -269,8 +275,12 @@ export default function DashBoardPage() {
 								<td>{user.email}</td>
 								<td>{user.soDt}</td>
 								<td>{user.maLoaiNguoiDung}</td>
-								<td>
+								<td className="text-center">
 									<button
+										style={{
+											backgroundColor: "#a1afe6",
+											borderColor: "#a1afe6",
+										}}
 										onClick={() => handleEdit(user, index)}
 										className="btn btn-info"
 									>
@@ -280,8 +290,9 @@ export default function DashBoardPage() {
 							</>
 						)}
 
-						<td>
+						<td className="text-center">
 							<button
+								style={{ backgroundColor: "#ff5c5f", borderColor: "#ff5c5f" }}
 								className="btn btn-danger"
 								onClick={() => handleDeleteAcc(user)}
 							>
@@ -299,6 +310,29 @@ export default function DashBoardPage() {
 			<div className="container userList">
 				<div className="userList-header">
 					<h1>Danh Sách Người Dùng</h1>
+					<form onSubmit={handleSubmitSearch} className="form">
+						<div className="search-bar">
+							<input
+								id="search"
+								type="text"
+								value={keyword}
+								name="search"
+								placeholder="Search..."
+								onChange={(e) => {
+									setKeyword(e.target.value);
+								}}
+							/>
+							<div
+								className="search-bar-close"
+								onClick={() => handleClearSearch()}
+							>
+								+
+							</div>
+							<button type="submit" className="btn search-button">
+								Search
+							</button>
+						</div>
+					</form>
 					<button
 						className="btn add-btn"
 						type="button"
@@ -308,7 +342,7 @@ export default function DashBoardPage() {
 					</button>
 				</div>
 
-				<div className="row">
+				{/* <div className="row">
 					<div className="col-sm-12">
 						<form onSubmit={handleSubmitSearch} className="form">
 							<div className="search-bar">
@@ -334,7 +368,7 @@ export default function DashBoardPage() {
 							</div>
 						</form>
 					</div>
-				</div>
+				</div> */}
 
 				<div className="row">
 					<div className="col-sm-12">

@@ -170,6 +170,9 @@ export default function MovieDetail(props) {
 											// className="my-auto"
 											type="text"
 											name="moTa"
+											// style={{
+											// 	height: 100 + "%",
+											// }}
 											value={editMovie.moTa}
 											onChange={handleChange}
 										/>
