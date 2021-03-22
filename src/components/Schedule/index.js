@@ -25,7 +25,7 @@ function Schedule(props) {
                             href={"#" + list.maHeThongRap}
                             role="tab" aria-controls={list.maHeThongRap} aria-selected="true"
                             onClick={() => renderDetailMovie(list.maHeThongRap)}
-                            style={{ width: '323px', height: '126px' }}
+                            style={{ width: '380px', height: '150px' }}
                         >
                             <div className="row">
                                 <div className="col-md-4">
@@ -57,7 +57,7 @@ function Schedule(props) {
                         return detail.lstCumRap.map((list, index1) => {
                             return (
                                 <div className="col-right" key={index1}>
-                                    <div className="d-flex active mt-4 pt-0">
+                                    <div className="d-flex active pt-0">
                                         <img src={vincom} />
                                         <div>
                                             <strong>{detail.tenCumRap}</strong>
@@ -77,6 +77,7 @@ function Schedule(props) {
                                             <button className={`btn d-flex align-items-center + ${classes.buttonTicket}`}><h6 style={{ marginLeft: '15px' }}>20:30</h6>~22:19</button>
                                         </div>
                                     </div>
+                                    <hr />
                                 </div>
                             );
                         })
@@ -261,7 +262,7 @@ function Schedule(props) {
     }
 
     return (
-        <section className="address" id="address">
+        <section className="address" style={{marginBottom: 'none'}} id="address">
             <div className="container">
                 <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist" style={{ marginLeft: '40%' }}>
                     <li className={`nav-item ${classes.tabs}`}>
@@ -275,14 +276,14 @@ function Schedule(props) {
                     <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div className="row mt-5">
                             <div className="col-md-4">
-                                <ul className="nav nav-tabs d-flex flex-wrap col-md-4" id="myTab" role="tablist">
+                                <ul className="nav nav-tabs d-flex flex-wrap col-md-12" style={{paddingRight: '0'}} id="myTab" role="tablist">
                                     {renderBranch()}
                                 </ul>
                             </div>
-                            <div className="col-md-8 overflow-auto" >
+                            <div className="col-md-8 overflow-auto" style={{padding: '0 0'}}>
                                 <ul className="nav nav-tabs d-flex flex-wrap col-md-12" id="myTabContent" role="tablist">
                                     {renderNgayThang()}
-                                    <div className="overflow-auto">
+                                    <div className="overflow-auto col-md-12" style={{padding: '0 0'}}>
                                         <div>
                                             {renderDetailMovie()}
                                         </div>
