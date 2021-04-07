@@ -15,23 +15,25 @@ export default function NavPage({
 	if (navRange < 1) {
 		row = [];
 		for (let i = 1; i <= 3; i++) {
-			row.push(
-				<button
-					className={
-						i === currentPage
-							? i === 1
-								? "pagebtn btn-active left"
-								: "pagebtn btn-active"
-							: i === 1
-							? "pagebtn left"
-							: "pagebtn"
-					}
-					key={i}
-					onClick={() => handleChangePage(i)}
-				>
-					{i}
-				</button>
-			);
+			if (i <= totalPages) {
+				row.push(
+					<button
+						className={
+							i === currentPage
+								? i === 1
+									? "pagebtn btn-active left"
+									: "pagebtn btn-active"
+								: i === 1
+								? "pagebtn left"
+								: "pagebtn"
+						}
+						key={i}
+						onClick={() => handleChangePage(i)}
+					>
+						{i}
+					</button>
+				);
+			}
 		}
 		if (currentPage + 1 <= totalPages) {
 			row.push(
